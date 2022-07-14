@@ -54,6 +54,6 @@ public class Window extends JFrame{
         System.out.println("안녕 팀원아!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("안녕 팀장아");
         System.out.println("개발2");
-        System.out.println("dev2 개발1");
+        System.out.println("dev2 개발2");
     }
 }
