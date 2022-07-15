@@ -1,5 +1,7 @@
 package moon_lander;
 
+import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -48,6 +50,7 @@ public class Window extends JFrame{
             @Override
             public void run() {
                 new Window();
+                System.out.println("ㅁ노ㅗㅗㅗㅗ");
             }
         });
     }
