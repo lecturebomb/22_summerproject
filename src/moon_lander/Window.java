@@ -50,7 +50,7 @@ public class Window extends JFrame{
             @Override
             public void run() {
                 new Window();
-                System.out.println("ㅁ노ㅗㅗㅗㅗ");
+                System.out.println("ㅁ노ㅗㅗㅗadsadsㅗ");
             }
         });
     }
