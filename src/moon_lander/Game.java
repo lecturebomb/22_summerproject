@@ -1,11 +1,10 @@
 package moon_lander;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -18,6 +17,9 @@ import javax.imageio.ImageIO;
 
 public class Game {
 
+    private int cnt;
+    private  long pretime;
+    private  int delay = 20;
     /**
      * The space rocket with which player will have to land.
      */
@@ -36,7 +38,10 @@ public class Game {
      * Red border of the frame. It is used when player crash the rocket.
      */
     private BufferedImage redBorderImg;
-    
+
+
+    private ArrayList<Object> objectList = new ArrayList<Object>();
+    private Object object;
 
     public Game()
     {
@@ -45,12 +50,29 @@ public class Game {
         Thread threadForInitGame = new Thread() {
             @Override
             public void run(){
+
+
                 // Sets variables and objects for the game.
                 Initialize();
                 // Load game files (images, sounds, ...)
                 LoadContent();
+
                 
                 Framework.gameState = Framework.GameState.PLAYING;
+                cnt = 0;
+                while(true){
+                    pretime = System.currentTimeMillis();
+                    if(System.currentTimeMillis()-pretime < delay){
+                        try {
+                            Thread.sleep(delay - System.currentTimeMillis() + pretime);
+                            ObjectInitialize();
+                            objectMove();
+                            cnt ++;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         };
         threadForInitGame.start();
@@ -64,6 +86,18 @@ public class Game {
     {
         playerRocket = new PlayerRocket();
         landingArea  = new LandingArea();
+    }
+    private void ObjectInitialize(){
+        if (cnt % 100 == 0 ){
+            object = new Object();
+            objectList.add(object);
+        }
+    }
+    private void objectMove(){
+        for(int i=0; i<objectList.size(); i++){
+            object = objectList.get(i);
+            object.moveleft();
+        }
     }
     
     /**
@@ -83,7 +117,7 @@ public class Game {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     
     /**
      * Restart game - reset some variables.
@@ -91,6 +125,7 @@ public class Game {
     public void RestartGame()
     {
         playerRocket.ResetPlayer();
+        object.ResetObject();
     }
     
     
@@ -104,7 +139,12 @@ public class Game {
     {
         // Move the rocket
         playerRocket.Update();
-        
+        if(playerRocket.x+ playerRocket.rocketImgWidth> object.x&&object.x+ object.ObjectWidth> playerRocket.x&&playerRocket.y+ playerRocket.rocketImgHeight> object.y&&object.y+ object.ObjectHeight> playerRocket.y)
+        {
+                playerRocket.crashed = true;
+                Framework.gameState = Framework.GameState.GAMEOVER;
+        }
+
         // Checks where the player rocket is. Is it still in the space or is it landed or crashed?
         // First we check bottom y coordinate of the rocket if is it near the landing area.
         if(playerRocket.y + playerRocket.rocketImgHeight - 10   > landingArea.y)
@@ -124,7 +164,8 @@ public class Game {
             Framework.gameState = Framework.GameState.GAMEOVER;
         }
     }
-    
+
+
     /**
      * Draw the game to the screen.
      * 
@@ -134,10 +175,15 @@ public class Game {
     public void Draw(Graphics2D g2d, Point mousePosition)
     {
         g2d.drawImage(backgroundImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
+        g2d.setColor(Color.white);
+        g2d.drawString("Objectcoordinate: " +  cnt, 10, 80);
         
         landingArea.Draw(g2d);
         
         playerRocket.Draw(g2d);
+
+        object.Draw(g2d);
+//        object1.Draw(g2d);
     }
     
     

@@ -2,8 +2,10 @@ package moon_lander;
 
 import org.w3c.dom.ls.LSOutput;
 
+import javax.naming.ldap.SortResponseControl;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.net.SocketOption;
 
 /**
  * Creates frame and set its properties.
@@ -50,7 +52,6 @@ public class Window extends JFrame{
             @Override
             public void run() {
                 new Window();
-                System.out.println("ㅁ노ㅗㅗㅗadsadsㅗ");
             }
         });
     }

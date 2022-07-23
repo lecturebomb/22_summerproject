@@ -99,7 +99,7 @@ public class PlayerRocket {
         LoadContent();
         
         // Now that we have rocketImgWidth we set starting x coordinate.
-        x = random.nextInt(Framework.frameWidth - rocketImgWidth);
+        x = random.nextInt(700);
     }
     
     
