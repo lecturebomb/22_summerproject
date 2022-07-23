@@ -18,6 +18,8 @@ import javax.imageio.ImageIO;
 public class Game {
 
     private int cnt;
+    private int n;
+    private int m=2;
     private  long pretime;
     private  int delay = 20;
     /**
@@ -67,7 +69,9 @@ public class Game {
                             Thread.sleep(delay - System.currentTimeMillis() + pretime);
                             ObjectInitialize();
                             objectMove();
+                            landingMove();
                             cnt ++;
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -94,12 +98,17 @@ public class Game {
         }
     }
     private void objectMove(){
-        for(int i=0; i<objectList.size(); i++){
-            object = objectList.get(i);
-            object.moveleft();
-        }
+        object.moveleft();
     }
-    
+    public void landingMove(){
+        if(landingArea.x>700){
+            landingArea.i = -1;
+        } else if (landingArea.x<0) {
+            landingArea.i=1;
+        }
+        landingArea.landingAreaMove(m);
+    }
+
     /**
      * Load game files - images, sounds, ...
      */
@@ -126,6 +135,7 @@ public class Game {
     {
         playerRocket.ResetPlayer();
         object.ResetObject();
+        m=2;
     }
     
     
@@ -162,6 +172,9 @@ public class Game {
                 playerRocket.crashed = true;
                 
             Framework.gameState = Framework.GameState.GAMEOVER;
+        }
+        if(playerRocket.landed|| playerRocket.crashed){
+            m=0;
         }
     }
 

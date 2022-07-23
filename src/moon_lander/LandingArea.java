@@ -21,6 +21,8 @@ public class LandingArea {
      * X coordinate of the landing area.
      */
     public int x;
+    public int i=1;
+
     /**
      * Y coordinate of the landing area.
      */
@@ -37,6 +39,15 @@ public class LandingArea {
     public int landingAreaImgWidth;
 
     private Random random;
+    public void landingMoveRight(){
+        this.x += 3;
+    }
+    public void landingMoveLeft(){
+        this.x -=3;
+    }
+    public void landingAreaMove(int n){
+        this.x +=n*i;
+    }
     
     
     public LandingArea()
