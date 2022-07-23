@@ -33,11 +33,13 @@ public class LandingArea {
      * Image of landing area.
      */
     private BufferedImage landingAreaImg;
+    private BufferedImage landingLargeAreaImg;
     
     /**
      * Width of landing area.
      */
     public int landingAreaImgWidth;
+    public int landingLargeAreaImgWidth;
 
 
 
@@ -78,6 +80,10 @@ public class LandingArea {
             landingAreaImg = ImageIO.read(landingAreaImgUrl);
             landingAreaImgWidth = landingAreaImg.getWidth();
 
+            URL landingLargeAreaImgUrl = this.getClass().getResource("/resources/images/landingLarge_area.png");
+            landingLargeAreaImg = ImageIO.read(landingLargeAreaImgUrl);
+            landingLargeAreaImgWidth = landingLargeAreaImg.getWidth();
+
 
         }
         catch (IOException ex) {
@@ -91,7 +97,13 @@ public class LandingArea {
     public void Draw(Graphics2D g2d)
     {
         g2d.drawImage(landingAreaImg, x, y, null);
+
     }
+    public void Drawlarge(Graphics2D g2d)
+    {
+        g2d.drawImage(landingLargeAreaImg,x,y,null);
+    }
+
 
 
 }

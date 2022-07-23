@@ -21,6 +21,7 @@ public class Game {
 
     private int cnt;
     private int n;
+    private int it=0;
     private int m=2;
     private  long pretime;
     private  int delay = 20;
@@ -46,6 +47,7 @@ public class Game {
 
     private ArrayList<Object> objectList = new ArrayList<Object>();
     private Object object;
+    private Item item;
     private Fuel fuel;
 
     public Game()
@@ -73,6 +75,7 @@ public class Game {
                             ObjectInitialize();
                             objectMove();
                             landingMove();
+
                             fuelUse();
                             cnt ++;
 
@@ -94,6 +97,7 @@ public class Game {
     {
         playerRocket = new PlayerRocket();
         landingArea  = new LandingArea();
+        item=new Item();
         fuel = new Fuel();
     }
     private void ObjectInitialize(){
@@ -146,7 +150,9 @@ public class Game {
         playerRocket.ResetPlayer();
         object.ResetObject();
         fuel.resetFuel();
+        item.ResetItem();
         m=2;
+        it = 0;
     }
     
     
@@ -164,7 +170,12 @@ public class Game {
         {
                 playerRocket.crashed = true;
                 Framework.gameState = Framework.GameState.GAMEOVER;
-        }
+        }// 장애물
+
+        if((playerRocket.x+ playerRocket.rocketImgWidth)> item.x1&&(item.x1+ item.enlargement_Width)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> item.y1&&(item.y1+ item.enlargement_Height)> playerRocket.y)
+        {
+            it=1;
+        }// 아이템
         if(fuel.oil == 0 ){
             playerRocket.crashed = true;
             Framework.gameState = Framework.GameState.GAMEOVER;
@@ -175,18 +186,36 @@ public class Game {
         if(playerRocket.y + playerRocket.rocketImgHeight - 10   > landingArea.y)
         {
             // Here we check if the rocket is over landing area.
-            if((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingAreaImgWidth - playerRocket.rocketImgWidth))
+            if(it == 0)
             {
-                // Here we check if the rocket speed isn't too high.
-                if(playerRocket.speedY <= playerRocket.topLandingSpeed)
-                    playerRocket.landed = true;
+                if((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingAreaImgWidth - playerRocket.rocketImgWidth)){
+                    if(playerRocket.speedY <= playerRocket.topLandingSpeed)
+                        playerRocket.landed = true;
+                    else
+                        playerRocket.crashed = true;
+                    Framework.gameState = Framework.GameState.GAMEOVER;
+                }
+                else
+                    playerRocket.crashed = true;
+            } else if (it == 1) {
+                if((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)){
+                    if(playerRocket.speedY <= playerRocket.topLandingSpeed)
+                        playerRocket.landed = true;
+                    else
+                        playerRocket.crashed = true;
+                    Framework.gameState = Framework.GameState.GAMEOVER;
+                }
                 else
                     playerRocket.crashed = true;
             }
-            else
-                playerRocket.crashed = true;
-                
             Framework.gameState = Framework.GameState.GAMEOVER;
+        }
+
+            {
+                // Here we check if the rocket speed isn't too high.
+
+                
+
         }
         if(playerRocket.landed|| playerRocket.crashed){
             m=0;
@@ -205,9 +234,17 @@ public class Game {
         g2d.drawImage(backgroundImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
         g2d.setColor(Color.white);
         g2d.drawString("cnt: " +  cnt, 10, 80);
-        
-        landingArea.Draw(g2d);
-        
+
+        if(it == 1){
+            landingArea.Drawlarge(g2d);
+        }
+        else{
+            landingArea.Draw(g2d);
+        }
+        if(it == 0){
+            item.Draw(g2d);
+        }
+
         playerRocket.Draw(g2d);
 
         object.Draw(g2d);
