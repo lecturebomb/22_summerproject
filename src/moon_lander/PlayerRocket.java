@@ -110,9 +110,9 @@ public class PlayerRocket {
         ResetPlayer();
         
         speedAccelerating = 2;
-        speedStopping = 1;
+        speedStopping = 1;//중력
         
-        topLandingSpeed = 5;
+        topLandingSpeed = 30;
     }
     
     private void LoadContent()

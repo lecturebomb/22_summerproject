@@ -1,6 +1,6 @@
 package moon_lander;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +39,8 @@ public class LandingArea {
      */
     public int landingAreaImgWidth;
 
+
+
     private Random random;
     public void landingMoveRight(){
         this.x += 3;
@@ -66,7 +68,8 @@ public class LandingArea {
         // Y coordinate of the landing area is at 86% frame height.
         y = (int)(Framework.frameHeight * 0.88);
     }
-    
+
+
     private void LoadContent()
     {
         try
@@ -74,10 +77,14 @@ public class LandingArea {
             URL landingAreaImgUrl = this.getClass().getResource("/resources/images/landing_area.png");
             landingAreaImg = ImageIO.read(landingAreaImgUrl);
             landingAreaImgWidth = landingAreaImg.getWidth();
+
+
         }
         catch (IOException ex) {
             Logger.getLogger(LandingArea.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }
     
     
