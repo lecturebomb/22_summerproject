@@ -2,6 +2,7 @@ package moon_lander;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -84,5 +85,6 @@ public class LandingArea {
     {
         g2d.drawImage(landingAreaImg, x, y, null);
     }
-    
+
+
 }
