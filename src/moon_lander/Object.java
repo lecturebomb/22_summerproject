@@ -30,6 +30,7 @@ public class Object {
         LoadContent();
     }
 
+
     public void Initialize(){
         ResetObject();
     }

@@ -36,6 +36,7 @@ public class Item{
 
     }
 
+
     public void LooadContent() {
         try {
             URL ItemImgUrl = this.getClass().getResource("/resources/images/star.png");
