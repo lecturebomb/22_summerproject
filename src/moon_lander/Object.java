@@ -19,9 +19,12 @@ public class Object {
 
     private Random random;
     public void moveleft(){
-        x -=7.5;
+        if(Framework.normal == true){
+            x -=7.5;
+        } else if (Framework.hard == true) {
+            x-=15;
+        }
     }
-
     public Object(){
         Initialize();
         LoadContent();

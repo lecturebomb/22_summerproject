@@ -244,9 +244,7 @@ public class Game {
         if(it == 0){
             item.Draw(g2d);
         }
-
         playerRocket.Draw(g2d);
-
         object.Draw(g2d);
         fuel.Draw(g2d);
     }
