@@ -38,7 +38,7 @@ public class Item{
 
     public void LooadContent() {
         try {
-            URL ItemImgUrl = this.getClass().getResource("/resources/images/object.png");
+            URL ItemImgUrl = this.getClass().getResource("/resources/images/star.png");
             enlargement = ImageIO.read(ItemImgUrl);
             enlargement_Width = enlargement.getWidth();
             enlargement_Height = enlargement.getHeight();
