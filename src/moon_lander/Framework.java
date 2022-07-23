@@ -19,7 +19,9 @@ import javax.imageio.ImageIO;
  */
 
 public class Framework extends Canvas {
-    
+
+    public static boolean normal = false;
+    public static boolean hard = false;
     /**
      * Width of the frame.
      */
@@ -75,12 +77,13 @@ public class Framework extends Canvas {
      * Image for menu.
      */
     private BufferedImage moonLanderMenuImg;
-    
-    
+
+
+
     public Framework ()
     {
+
         super();
-        
         gameState = GameState.VISUALIZING;
         
         //We start game in new thread.
@@ -219,7 +222,8 @@ public class Framework extends Canvas {
                 g2d.drawImage(moonLanderMenuImg, 0, 0, frameWidth, frameHeight, null);
                 g2d.setColor(Color.white);
                 g2d.drawString("Use w a d keys to controle the rocket.", frameWidth / 2 - 117, frameHeight / 2);
-                g2d.drawString("Press any key to start the game.", frameWidth / 2 - 100, frameHeight / 2 + 30);
+                g2d.drawString("Press 1 to start normal game.", frameWidth / 2 - 100, frameHeight / 2 + 30);
+                g2d.drawString("Press 2 to start hard game.", frameWidth / 2 - 100, frameHeight / 2 + 50);
                 g2d.drawString("WWW.GAMETUTORIAL.NET", 7, frameHeight - 5);
             break;
             case OPTIONS:
@@ -240,7 +244,6 @@ public class Framework extends Canvas {
         // We set gameTime to zero and lastTime to current time for later calculations.
         gameTime = 0;
         lastTime = System.nanoTime();
-        
         game = new Game();
     }
     
@@ -293,8 +296,14 @@ public class Framework extends Canvas {
         switch (gameState)
         {
             case MAIN_MENU:
-                newGame();
-            break;
+                if(e.getKeyCode() == KeyEvent.VK_1){
+                    normal = true;
+                    newGame();
+                } else if (e.getKeyCode() == KeyEvent.VK_2) {
+                    hard = true;
+                    newGame();
+                }
+                break;
             case GAMEOVER:
                 if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER)
                     restartGame();

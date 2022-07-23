@@ -10,15 +10,15 @@ public class Fuel {
         oil = 10;
         f = 0.1;
     }
-    public void Draw(Graphics2D g2d)
+    public void Draw(Graphics2D g)
     {
         if(oil <= 2){
-            g2d.setColor(Color.red);
+            g.setColor(Color.red);
         }
         else {
-            g2d.setColor(Color.white);
+            g.setColor(Color.white);
         }
         oil = Math.round(oil*10) / 10.0;
-        g2d.drawString("Fuel: " + oil, 700, 40);
+        g.drawString("Fuel: " + oil, 600, 40);
     }
 }
