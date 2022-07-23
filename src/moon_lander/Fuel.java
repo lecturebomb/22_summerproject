@@ -19,6 +19,7 @@ public class Fuel {
         } else if (Framework.hard == true) {
             oil = 5;
             f = 0.1;
+
         }
 
     }
