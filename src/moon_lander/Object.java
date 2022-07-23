@@ -19,7 +19,7 @@ public class Object {
 
     private Random random;
     public void moveleft(){
-        this.x -=7.5;
+        x -=7.5;
     }
 
     public Object(){
@@ -28,12 +28,11 @@ public class Object {
     }
 
     public void Initialize(){
-        random = new Random();
         ResetObject();
-
     }
     public void ResetObject(){
-        x = Framework.frameWidth-ObjectWidth;
+        random = new Random();
+        x = Framework.frameWidth - ObjectWidth;
         y = random.nextInt(Framework.frameHeight - ObjectHeight);
     }
     public void LoadContent(){

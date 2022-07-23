@@ -2,7 +2,9 @@ package moon_lander;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,6 +20,8 @@ import javax.imageio.ImageIO;
 public class Game {
 
     private int cnt;
+    private int n;
+    private int m=2;
     private  long pretime;
     private  int delay = 20;
     /**
@@ -42,6 +46,7 @@ public class Game {
 
     private ArrayList<Object> objectList = new ArrayList<Object>();
     private Object object;
+    private Fuel fuel;
 
     public Game()
     {
@@ -67,7 +72,10 @@ public class Game {
                             Thread.sleep(delay - System.currentTimeMillis() + pretime);
                             ObjectInitialize();
                             objectMove();
+                            landingMove();
+                            fuelUse();
                             cnt ++;
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -86,6 +94,7 @@ public class Game {
     {
         playerRocket = new PlayerRocket();
         landingArea  = new LandingArea();
+        fuel = new Fuel();
     }
     private void ObjectInitialize(){
         if (cnt % 100 == 0 ){
@@ -94,12 +103,22 @@ public class Game {
         }
     }
     private void objectMove(){
-        for(int i=0; i<objectList.size(); i++){
-            object = objectList.get(i);
-            object.moveleft();
+        object.moveleft();
+    }
+    public void landingMove(){
+        if(landingArea.x>700){
+            landingArea.i = -1;
+        } else if (landingArea.x<0) {
+            landingArea.i=1;
+        }
+        landingArea.landingAreaMove(m);
+    }
+    public void fuelUse(){
+        if(cnt % 10 == 0){
+            fuel.oil -= fuel.f;
         }
     }
-    
+
     /**
      * Load game files - images, sounds, ...
      */
@@ -126,6 +145,8 @@ public class Game {
     {
         playerRocket.ResetPlayer();
         object.ResetObject();
+        fuel.resetFuel();
+        m=2;
     }
     
     
@@ -139,10 +160,14 @@ public class Game {
     {
         // Move the rocket
         playerRocket.Update();
-        if(playerRocket.x+ playerRocket.rocketImgWidth> object.x&&object.x+ object.ObjectWidth> playerRocket.x&&playerRocket.y+ playerRocket.rocketImgHeight> object.y&&object.y+ object.ObjectHeight> playerRocket.y)
+        if((playerRocket.x+ playerRocket.rocketImgWidth)> object.x&&(object.x+ object.ObjectWidth)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> object.y&&(object.y+ object.ObjectHeight)> playerRocket.y)
         {
                 playerRocket.crashed = true;
                 Framework.gameState = Framework.GameState.GAMEOVER;
+        }
+        if(fuel.oil == 0 ){
+            playerRocket.crashed = true;
+            Framework.gameState = Framework.GameState.GAMEOVER;
         }
 
         // Checks where the player rocket is. Is it still in the space or is it landed or crashed?
@@ -163,8 +188,11 @@ public class Game {
                 
             Framework.gameState = Framework.GameState.GAMEOVER;
         }
+        if(playerRocket.landed|| playerRocket.crashed){
+            m=0;
+            fuel.f=0;
+        }
     }
-
 
     /**
      * Draw the game to the screen.
@@ -176,14 +204,14 @@ public class Game {
     {
         g2d.drawImage(backgroundImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
         g2d.setColor(Color.white);
-        g2d.drawString("Objectcoordinate: " +  cnt, 10, 80);
+        g2d.drawString("cnt: " +  cnt, 10, 80);
         
         landingArea.Draw(g2d);
         
         playerRocket.Draw(g2d);
 
         object.Draw(g2d);
-//        object1.Draw(g2d);
+        fuel.Draw(g2d);
     }
     
     
