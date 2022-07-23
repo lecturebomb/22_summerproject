@@ -20,6 +20,7 @@ public class Fuel {
             oil = 5;
             f = 0.1;
 
+
         }
 
     }
