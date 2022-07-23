@@ -75,7 +75,6 @@ public class Game {
                             ObjectInitialize();
                             objectMove();
                             landingMove();
-
                             fuelUse();
                             cnt ++;
 
