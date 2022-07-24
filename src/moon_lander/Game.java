@@ -22,6 +22,7 @@ public class Game {
     private int cnt;
     private int n;
     private int it=0;
+    private int lit =0;
     private int m=2;
     private  long pretime;
     private  int delay = 20;
@@ -49,6 +50,10 @@ public class Game {
     private Object object;
     private Item item;
     private Fuel fuel;
+
+    private LandingItem litem;
+
+
 
     public Game()
     {
@@ -98,6 +103,8 @@ public class Game {
         landingArea  = new LandingArea();
         item=new Item();
         fuel = new Fuel();
+        litem= new LandingItem();
+
     }
     private void ObjectInitialize(){
         if (cnt % 100 == 0 ){
@@ -150,8 +157,10 @@ public class Game {
         object.ResetObject();
         fuel.resetFuel();
         item.ResetItem();
+        litem.ResetItem();
         m=2;
         it = 0;
+        lit=0;
     }
     
     
@@ -165,61 +174,64 @@ public class Game {
     {
         // Move the rocket
         playerRocket.Update();
-        if((playerRocket.x+ playerRocket.rocketImgWidth)> object.x&&(object.x+ object.ObjectWidth)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> object.y&&(object.y+ object.ObjectHeight)> playerRocket.y)
-        {
+
+
+
+            if ((playerRocket.x + playerRocket.rocketImgWidth) > object.x && (object.x + object.ObjectWidth) > playerRocket.x && (playerRocket.y + playerRocket.rocketImgHeight) > object.y && (object.y + object.ObjectHeight) > playerRocket.y) {
                 playerRocket.crashed = true;
                 Framework.gameState = Framework.GameState.GAMEOVER;
-        }// 장애물
+            }// 장애물 만나면 게임 종료
 
-        if((playerRocket.x+ playerRocket.rocketImgWidth)> item.x1&&(item.x1+ item.enlargement_Width)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> item.y1&&(item.y1+ item.enlargement_Height)> playerRocket.y)
-        {
-            it=1;
-        }// 아이템
-        if(fuel.oil == 0 ){
-            playerRocket.crashed = true;
-            Framework.gameState = Framework.GameState.GAMEOVER;
-        }
-
-        // Checks where the player rocket is. Is it still in the space or is it landed or crashed?
-        // First we check bottom y coordinate of the rocket if is it near the landing area.
-        if(playerRocket.y + playerRocket.rocketImgHeight - 10   > landingArea.y)
-        {
-            // Here we check if the rocket is over landing area.
-            if(it == 0)
+            if ((playerRocket.x + playerRocket.rocketImgWidth) > item.x1 && (item.x1 + item.enlargement_Width) > playerRocket.x && (playerRocket.y + playerRocket.rocketImgHeight) > item.y1 && (item.y1 + item.enlargement_Height) > playerRocket.y) {
+                it = 1;
+            }// 아이템을 먹으면 it=1
+            if((playerRocket.x+ playerRocket.rocketImgWidth)> litem.x&&(litem.x+ litem.LandingImg_Width)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> litem.y&&(litem.y+ litem.LandingImg_Height)> playerRocket.y)
             {
-                if((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingAreaImgWidth - playerRocket.rocketImgWidth)){
-                    if(playerRocket.speedY <= playerRocket.topLandingSpeed)
-                        playerRocket.landed = true;
-                    else
-                        playerRocket.crashed = true;
-                    Framework.gameState = Framework.GameState.GAMEOVER;
-                }
-                else
-                    playerRocket.crashed = true;
-            } else if (it == 1) {
-                if((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)){
-                    if(playerRocket.speedY <= playerRocket.topLandingSpeed)
-                        playerRocket.landed = true;
-                    else
-                        playerRocket.crashed = true;
-                    Framework.gameState = Framework.GameState.GAMEOVER;
-                }
-                else
-                    playerRocket.crashed = true;
+                lit=1;
             }
-            Framework.gameState = Framework.GameState.GAMEOVER;
-        }
+            if (fuel.oil == 0) {
+                playerRocket.crashed = true;
+                Framework.gameState = Framework.GameState.GAMEOVER;
+            }
+
+            // Checks where the player rocket is. Is it still in the space or is it landed or crashed?
+            // First we check bottom y coordinate of the rocket if is it near the landing area.
+            if (playerRocket.y + playerRocket.rocketImgHeight - 10 > landingArea.y) {
+                // Here we check if the rocket is over landing area.
+                if (it == 0) {
+                    if ((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingAreaImgWidth - playerRocket.rocketImgWidth)) {
+                        if (playerRocket.speedY <= playerRocket.topLandingSpeed)
+                            if(lit==1)
+                                playerRocket.landed = true;
+                            else
+                                playerRocket.crashed = true;
+                                Framework.gameState = Framework.GameState.GAMEOVER;
+                    } else
+                        playerRocket.crashed = true;
+                } else if (it == 1) {
+                    if ((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)) {
+                        if (playerRocket.speedY <= playerRocket.topLandingSpeed)
+                            if(lit==1)
+                                playerRocket.landed = true;
+                            else
+                                playerRocket.crashed = true;
+                                Framework.gameState = Framework.GameState.GAMEOVER;
+                    } else
+                        playerRocket.crashed = true;
+                }
+                Framework.gameState = Framework.GameState.GAMEOVER;
+            }
 
             {
                 // Here we check if the rocket speed isn't too high.
 
-                
 
-        }
-        if(playerRocket.landed|| playerRocket.crashed){
-            m=0;
-            fuel.f=0;
-        }
+            }
+            if (playerRocket.landed || playerRocket.crashed) {
+                m = 0;
+                fuel.f = 0;
+            }
+
     }
 
     /**
@@ -236,12 +248,17 @@ public class Game {
 
         if(it == 1){
             landingArea.Drawlarge(g2d);
+
         }
         else{
             landingArea.Draw(g2d);
         }
         if(it == 0){
             item.Draw(g2d);
+
+        }
+        if (lit==0){
+            litem.Draw(g2d);
         }
         playerRocket.Draw(g2d);
         object.Draw(g2d);
