@@ -53,7 +53,7 @@ public class Object {
     public void Draw(Graphics2D g2d)
     {
         g2d.setColor(Color.white);
-        g2d.drawString("Objectcoordinate: " + x + " : " + y, 10, 40);
+        g2d.drawString("Objectcoordinate: " + x + " : " + y, 10, 50);
         g2d.drawImage(ObjectImg, x, y, null);
     }
 

@@ -51,7 +51,6 @@ public class Item{
     public void Draw(Graphics2D g2d)
         {
             g2d.setColor(Color.white);
-            g2d.drawString("itemcoordinate: " + x1 + " : " + y1, 10, 40);
             g2d.drawImage(enlargement, x1, y1, null);
         }
 
