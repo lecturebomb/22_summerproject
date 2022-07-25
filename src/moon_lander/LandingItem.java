@@ -50,7 +50,6 @@ public class LandingItem {
 public void Draw(Graphics2D g2d)
 {
     g2d.setColor(Color.white);
-    g2d.drawString("Landingitem"+x+";"+y,10,80);
     g2d.drawImage(LandingImg,x,y,null);
 }
 
