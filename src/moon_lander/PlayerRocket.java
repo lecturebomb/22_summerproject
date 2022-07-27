@@ -111,8 +111,13 @@ public class PlayerRocket {
         
         speedAccelerating = 2;
         speedStopping = 1;//중력
-        
-        topLandingSpeed = 7;
+        if(Framework.normal==true){
+            topLandingSpeed = 12;// 착륙속도
+        } else if(Framework.hard==true){
+            topLandingSpeed=5;
+        }
+
+
     }
     
     private void LoadContent()

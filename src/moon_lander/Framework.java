@@ -214,6 +214,12 @@ public class Framework extends Canvas {
         {
             case PLAYING:
                 game.Draw(g2d, mousePosition());
+                g2d.setColor(Color.BLUE);
+                g2d.drawString("Press ESC to regame", frameWidth / 2 - 117, frameHeight -40);
+                if(normal=true)
+                    g2d.drawString("Press 2 to start hard game", frameWidth / 2 - 117, frameHeight -20);
+                else if(hard=true)
+                    g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 117, frameHeight -20);
             break;
             case GAMEOVER:
                 game.DrawGameOver(g2d, mousePosition(), gameTime);
@@ -221,9 +227,12 @@ public class Framework extends Canvas {
             case MAIN_MENU:
                 g2d.drawImage(moonLanderMenuImg, 0, 0, frameWidth, frameHeight, null);
                 g2d.setColor(Color.white);
-                g2d.drawString("Use w a d keys to controle the rocket.", frameWidth / 2 - 117, frameHeight / 2);
+                g2d.drawString("Use w a d keys to control the rocket.", frameWidth / 2 - 117, frameHeight / 2);
+
+                g2d.setColor(Color.BLUE);
                 g2d.drawString("Press 1 to start normal game.", frameWidth / 2 - 100, frameHeight / 2 + 30);
                 g2d.drawString("Press 2 to start hard game.", frameWidth / 2 - 100, frameHeight / 2 + 50);
+                g2d.setColor(Color.white);
                 g2d.drawString("WWW.GAMETUTORIAL.NET", 7, frameHeight - 5);
             break;
             case OPTIONS:
@@ -251,7 +260,12 @@ public class Framework extends Canvas {
      *  Restart game - reset game time and call RestartGame() method of game object so that reset some variables.
      */
     private void restartGame()
+
     {
+
+
+
+
         // We set gameTime to zero and lastTime to current time for later calculations.
         gameTime = 0;
         lastTime = System.nanoTime();
@@ -307,6 +321,24 @@ public class Framework extends Canvas {
             case GAMEOVER:
                 if(e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER)
                     restartGame();
+            case PLAYING:
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE )
+                restartGame();
+                if(normal=true){
+                    if(e.getKeyCode()==KeyEvent.VK_2) {
+                        normal = false;
+                        hard = true;
+                        restartGame();
+                    }
+                    }
+                else if(hard=true){
+                    if(e.getKeyCode()==KeyEvent.VK_1) {
+                        hard = false;
+                        normal = true;
+                        restartGame();
+                    }
+                }
+
             break;
         }
     }
