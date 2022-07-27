@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 public class Object {
     public int x;
     public int y;
+
+
     private BufferedImage ObjectImg;
     public int ObjectWidth, ObjectHeight;
 
@@ -37,7 +39,7 @@ public class Object {
     public void ResetObject(){
         random = new Random();
         x = Framework.frameWidth - ObjectWidth;
-        y = random.nextInt(Framework.frameHeight - ObjectHeight);
+        y = random.nextInt(Framework.frameHeight - ObjectHeight-200);
     }
     public void LoadContent(){
         try {
