@@ -252,7 +252,7 @@ public class Game {
     {
         g2d.drawImage(backgroundImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
         g2d.setColor(Color.white);
-        g2d.drawString("cnt: " +  cnt, 10, 80);
+        g2d.drawString("cnt: " +  cnt, 10, 10);
 
         if(it == 1){
             landingArea.Drawlarge(g2d);

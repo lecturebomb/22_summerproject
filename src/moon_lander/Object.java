@@ -21,11 +21,14 @@ public class Object {
 
     private Random random;
     public void moveleft(){
-        if(Framework.normal == true){
-            x -=7.5;
-        } else if (Framework.hard == true) {
+        if((Framework.normal==true)&&(Framework.hard==false)) {
+            x -= 7.5;
+        }
+        if((Framework.hard==true)&&(Framework.normal==true)){
             x-=15;
         }
+
+
     }
     public Object(){
         Initialize();
@@ -39,7 +42,7 @@ public class Object {
     public void ResetObject(){
         random = new Random();
         x = Framework.frameWidth - ObjectWidth;
-        y = random.nextInt(Framework.frameHeight - ObjectHeight-200);
+        y = random.nextInt(Framework.frameHeight - ObjectHeight-150);
     }
     public void LoadContent(){
         try {
@@ -55,8 +58,8 @@ public class Object {
     public void Draw(Graphics2D g2d)
     {
         g2d.setColor(Color.white);
-        g2d.drawString("Objectcoordinate: " + x + " : " + y, 10, 50);
         g2d.drawImage(ObjectImg, x, y, null);
     }
+
 
 }

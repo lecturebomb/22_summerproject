@@ -114,7 +114,7 @@ public class PlayerRocket {
         if(Framework.normal==true){
             topLandingSpeed = 12;// 착륙속도
         } else if(Framework.hard==true){
-            topLandingSpeed=5;
+            topLandingSpeed=7;
         }
 
 
@@ -190,8 +190,7 @@ public class PlayerRocket {
     public void Draw(Graphics2D g2d)
     {
         g2d.setColor(Color.white);
-        g2d.drawString("Rocket coordinates: " + x + " : " + y, 5, 15);
-        
+
         // If the rocket is landed.
         if(landed)
         {

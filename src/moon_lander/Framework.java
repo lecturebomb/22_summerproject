@@ -215,11 +215,10 @@ public class Framework extends Canvas {
             case PLAYING:
                 game.Draw(g2d, mousePosition());
                 g2d.setColor(Color.BLUE);
-                g2d.drawString("Press ESC to regame", frameWidth / 2 - 117, frameHeight -40);
-                if(normal=true)
-                    g2d.drawString("Press 2 to start hard game", frameWidth / 2 - 117, frameHeight -20);
-                else if(hard=true)
-                    g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 117, frameHeight -20);
+                g2d.drawString("Press ESC to regame", frameWidth / 2 - 110, frameHeight -45);
+                g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 100,frameHeight-27);
+                    g2d.drawString("Press 2 to start hard game", frameWidth / 2 - 100,frameHeight-10);
+
             break;
             case GAMEOVER:
                 game.DrawGameOver(g2d, mousePosition(), gameTime);
@@ -326,15 +325,16 @@ public class Framework extends Canvas {
                 restartGame();
                 if(normal=true){
                     if(e.getKeyCode()==KeyEvent.VK_2) {
-                        normal = false;
-                        hard = true;
+                        hard=true;
+                        normal=false;
                         restartGame();
                     }
                     }
-                else if(hard=true){
+                if(hard=true){
                     if(e.getKeyCode()==KeyEvent.VK_1) {
-                        hard = false;
-                        normal = true;
+                        normal=true;
+                        hard=false;
+
                         restartGame();
                     }
                 }
