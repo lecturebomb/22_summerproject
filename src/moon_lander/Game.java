@@ -187,9 +187,9 @@ public class Game {
             }// 아이템을 먹으면 it=1
             if((playerRocket.x+ playerRocket.rocketImgWidth)> litem.x&&(litem.x+ litem.LandingImg_Width)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> litem.y&&(litem.y+ litem.LandingImg_Height)> playerRocket.y)
             {
-                lit=1;
+                lit=1;//랜딩 아이템을 먹으면 lit=1
             }
-            if (fuel.oil == 0) {
+            if (fuel.oil == 0) {// 연료가 모두 떨어지면 게임 종료
                 playerRocket.crashed = true;
                 Framework.gameState = Framework.GameState.GAMEOVER;
             }
@@ -203,21 +203,29 @@ public class Game {
                         if (playerRocket.speedY <= playerRocket.topLandingSpeed)
                             if(lit==1)
                                 playerRocket.landed = true;
-                            else
+                            else {
                                 playerRocket.crashed = true;
                                 Framework.gameState = Framework.GameState.GAMEOVER;
-                    } else
+                            }
+                    } else {
                         playerRocket.crashed = true;
+                        Framework.gameState = Framework.GameState.GAMEOVER;
+                    }
+
                 } else if (it == 1) {
                     if ((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)) {
                         if (playerRocket.speedY <= playerRocket.topLandingSpeed)
                             if(lit==1)
                                 playerRocket.landed = true;
-                            else
+                            else {
                                 playerRocket.crashed = true;
                                 Framework.gameState = Framework.GameState.GAMEOVER;
-                    } else
+                            }
+                    } else {
                         playerRocket.crashed = true;
+                        Framework.gameState = Framework.GameState.GAMEOVER;
+                    }
+
                 }
                 Framework.gameState = Framework.GameState.GAMEOVER;
             }
