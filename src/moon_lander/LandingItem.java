@@ -32,8 +32,8 @@ public class LandingItem {
     }
 
     public void ResetItem(){
-        x= random.nextInt(Framework.frameWidth-LandingImg_Width);
-        y= random.nextInt(Framework.frameHeight-LandingImg_Height-100);
+        x= random.nextInt(Framework.frameWidth-50-LandingImg_Width-50);
+        y= random.nextInt(Framework.frameHeight-50-LandingImg_Height-100);
     }
     public void LoadContent(){
 
