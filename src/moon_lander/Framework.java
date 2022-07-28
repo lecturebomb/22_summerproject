@@ -215,11 +215,15 @@ public class Framework extends Canvas {
             case PLAYING:
                 game.Draw(g2d, mousePosition());
                 g2d.setColor(Color.BLUE);
-                g2d.drawString("Press ESC to regame", frameWidth / 2 - 117, frameHeight -40);
-                if(normal=true)
+                g2d.drawString("Press ESC to Menu", frameWidth / 2 - 117, frameHeight -40);
+                if(normal==true){
+
                     g2d.drawString("Press 2 to start hard game", frameWidth / 2 - 117, frameHeight -20);
-                else if(hard=true)
-                    g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 117, frameHeight -20);
+                }
+                else if(hard==true) {
+
+                    g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 117, frameHeight - 20);
+                }
             break;
             case GAMEOVER:
                 game.DrawGameOver(g2d, mousePosition(), gameTime);
@@ -263,13 +267,10 @@ public class Framework extends Canvas {
 
     {
 
-
-
-
         // We set gameTime to zero and lastTime to current time for later calculations.
         gameTime = 0;
         lastTime = System.nanoTime();
-        
+
         game.RestartGame();
         
         // We change game status so that the game can start.
@@ -312,9 +313,11 @@ public class Framework extends Canvas {
             case MAIN_MENU:
                 if(e.getKeyCode() == KeyEvent.VK_1){
                     normal = true;
+                    hard=false;
                     newGame();
                 } else if (e.getKeyCode() == KeyEvent.VK_2) {
                     hard = true;
+                    normal=false;
                     newGame();
                 }
                 break;
@@ -324,21 +327,21 @@ public class Framework extends Canvas {
             case PLAYING:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE )
                 restartGame();
-                if(normal=true){
+
+                if(normal==true){
                     if(e.getKeyCode()==KeyEvent.VK_2) {
-                        normal = false;
                         hard = true;
+                        normal=false;
                         restartGame();
                     }
                     }
-                else if(hard=true){
+                if(hard==true){
                     if(e.getKeyCode()==KeyEvent.VK_1) {
                         hard = false;
-                        normal = true;
+                        normal=true;
                         restartGame();
                     }
                 }
-
             break;
         }
     }
