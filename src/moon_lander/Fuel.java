@@ -32,11 +32,6 @@ public class Fuel {
 
         oil = Math.round(oil*10) / 10.0;
 
-
-
-
-
-
-        g.drawString("Fuel: " + oil, 600, 40);
+        g.drawString("Fuel: " + oil, 700, 40);
     }
 }

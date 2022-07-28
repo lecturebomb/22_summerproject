@@ -21,9 +21,9 @@ public class Object {
 
     private Random random;
     public void moveleft(){
-        if(Framework.normal == true){
+        if(Framework.normal  == true){
             x -=7.5;
-        } else if (Framework.hard == true) {
+        }else if (Framework.hard == true) {
             x-=15;
         }
     }
@@ -55,7 +55,6 @@ public class Object {
     public void Draw(Graphics2D g2d)
     {
         g2d.setColor(Color.white);
-        g2d.drawString("Objectcoordinate: " + x + " : " + y, 10, 50);
         g2d.drawImage(ObjectImg, x, y, null);
     }
 
