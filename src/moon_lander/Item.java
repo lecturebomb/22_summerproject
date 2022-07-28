@@ -31,7 +31,7 @@ public class Item{
     }
 
     public void ResetItem() {
-        x1= random.nextInt(Framework.frameWidth-50 - enlargement_Width-50);
+        x1= random.nextInt(Framework.frameWidth-50 - enlargement_Width- 50);
         y1= random.nextInt(Framework.frameHeight-100 - enlargement_Height-100);
 
     }
