@@ -44,14 +44,9 @@ public class LandingArea {
 
 
     private Random random;
-    public void landingMoveRight(){
-        this.x += 3;
-    }
-    public void landingMoveLeft(){
-        this.x -=3;
-    }
+
     public void landingAreaMove(int n){
-        this.x +=n*i;
+        x +=n*i;
     }
     
     
