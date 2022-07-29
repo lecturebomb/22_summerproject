@@ -214,15 +214,15 @@ public class Framework extends Canvas {
         {
             case PLAYING:
                 game.Draw(g2d, mousePosition());
-                g2d.setColor(Color.BLUE);
-                g2d.drawString("Press ESC to ", frameWidth / 2 - 117, frameHeight -40);
+                g2d.setColor(Color.BLACK);
+                g2d.drawString("Press ESC to Regame", frameWidth / 2 - 117, frameHeight -40);
                 if(normal==true){
 
-                    g2d.drawString("Press 2 to start hard game", frameWidth / 2 - 117, frameHeight -20);
+                    g2d.drawString("Press 2 to start hard game", 30, 50);
                 }
                 else if(hard==true) {
 
-                    g2d.drawString("Press 1 to start normal game", frameWidth / 2 - 117, frameHeight - 20);
+                    g2d.drawString("Press 1 to start normal game", 30, 50);
                 }
 
             break;

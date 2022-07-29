@@ -39,6 +39,7 @@ public class Game {
      * Game background image.
      */
     private BufferedImage backgroundImg;
+    private BufferedImage backFrameImg;
     
     /**
      * Red border of the frame. It is used when player crash the rocket.
@@ -138,6 +139,9 @@ public class Game {
         {
             URL backgroundImgUrl = this.getClass().getResource("/resources/images/background.jpg");
             backgroundImg = ImageIO.read(backgroundImgUrl);
+
+            URL backFrameImgUrl = this.getClass().getResource("/resources/images/Frame.png");
+            backFrameImg = ImageIO.read(backFrameImgUrl);
             
             URL redBorderImgUrl = this.getClass().getResource("/resources/images/red_border.png");
             redBorderImg = ImageIO.read(redBorderImgUrl);
@@ -174,18 +178,33 @@ public class Game {
     {
         // Move the rocket
         playerRocket.Update();
-
-
-
-            if ((playerRocket.x + playerRocket.rocketImgWidth) > object.x && (object.x + object.ObjectWidth) > playerRocket.x && (playerRocket.y + playerRocket.rocketImgHeight) > object.y && (object.y + object.ObjectHeight) > playerRocket.y) {
+            if ((playerRocket.x + playerRocket.rocketImgWidth) > object.x
+                    && (object.x + object.ObjectWidth) > playerRocket.x
+                    && (playerRocket.y + playerRocket.rocketImgHeight) > object.y
+                    && (object.y + object.ObjectHeight) > playerRocket.y)
+            {
                 playerRocket.crashed = true;
                 Framework.gameState = Framework.GameState.GAMEOVER;
             }// 장애물 만나면 게임 종료
 
-            if ((playerRocket.x + playerRocket.rocketImgWidth) > item.x1 && (item.x1 + item.enlargement_Width) > playerRocket.x && (playerRocket.y + playerRocket.rocketImgHeight) > item.y1 && (item.y1 + item.enlargement_Height) > playerRocket.y) {
+            if((playerRocket.x <10)
+                    || (playerRocket.x+ playerRocket.rocketImgWidth>790)
+                    || (playerRocket.y<7))
+            {
+                playerRocket.crashed = true;
+                Framework.gameState = Framework.GameState.GAMEOVER;
+            }
+            if ((playerRocket.x + playerRocket.rocketImgWidth) > item.x1
+                    && (item.x1 + item.enlargement_Width) > playerRocket.x
+                    && (playerRocket.y + playerRocket.rocketImgHeight) > item.y1
+                    && (item.y1 + item.enlargement_Height) > playerRocket.y)
+            {
                 it = 1;
             }// 아이템을 먹으면 it=1
-            if((playerRocket.x+ playerRocket.rocketImgWidth)> litem.x&&(litem.x+ litem.LandingImg_Width)> playerRocket.x&&(playerRocket.y+ playerRocket.rocketImgHeight)> litem.y&&(litem.y+ litem.LandingImg_Height)> playerRocket.y)
+            if((playerRocket.x+ playerRocket.rocketImgWidth)> litem.x
+                    &&(litem.x+ litem.LandingImg_Width)> playerRocket.x
+                    &&(playerRocket.y+ playerRocket.rocketImgHeight)> litem.y
+                    &&(litem.y+ litem.LandingImg_Height)> playerRocket.y)
             {
                 lit=1;//랜딩 아이템을 먹으면 lit=1
             }
@@ -213,7 +232,8 @@ public class Game {
                     }
 
                 } else if (it == 1) {
-                    if ((playerRocket.x > landingArea.x) && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)) {
+                    if ((playerRocket.x > landingArea.x)
+                            && (playerRocket.x < landingArea.x + landingArea.landingLargeAreaImgWidth - playerRocket.rocketImgWidth)) {
                         if (playerRocket.speedY <= playerRocket.topLandingSpeed)
                             if(lit==1)
                                 playerRocket.landed = true;
@@ -254,6 +274,8 @@ public class Game {
         g2d.drawImage(backgroundImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
         g2d.setColor(Color.white);
         g2d.drawString("cnt: " +  cnt, 10, 80);
+
+        g2d.drawImage(backFrameImg, 0, 0, Framework.frameWidth, Framework.frameHeight, null);
 
         if(it == 1){
             landingArea.Drawlarge(g2d);

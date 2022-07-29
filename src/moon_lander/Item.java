@@ -35,8 +35,6 @@ public class Item{
         y1= random.nextInt(Framework.frameHeight-100 - enlargement_Height-100);
 
     }
-
-
     public void LooadContent() {
         try {
             URL ItemImgUrl = this.getClass().getResource("/resources/images/star.png");
